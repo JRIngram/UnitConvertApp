@@ -1,19 +1,18 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import ConvertorScreen from './src/screens/ConvertorScreen';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <SafeAreaView style={styles.androidSafeArea}>
+      <ConvertorScreen />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  androidSafeArea: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    paddingTop: Platform.OS === 'android' ? 25 : 0
+  }
 });
