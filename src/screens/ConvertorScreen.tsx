@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
       borderWidth: 1,
     },
     title: {
-      fontSize: 20
+      fontSize: 20,
     }
   });
 

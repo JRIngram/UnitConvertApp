@@ -11,7 +11,6 @@ const UnitConvertorInput = (props: any) => {
     const addPossibilities = () => {
         let pickerOptions = [];
         for(let i = 0; i < possibilities.length; i++){
-            //pickerOptions.push(<Picker.Item value={possibilities[i]} label={possibilities[i]}/>)
             pickerOptions.push(<Picker.Item value={possibilities[i]} label={possibilities[i]}>{possibilities[i]}</Picker.Item>)
         }
         return pickerOptions;
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
         width: 200,
         borderColor: 'gray',
         borderWidth: 1,
-        backgroundColor: '#DDD',
+        backgroundColor: '#EEE',
         padding: 5,
         flex: 2
     },
