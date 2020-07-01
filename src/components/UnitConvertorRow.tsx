@@ -12,7 +12,10 @@ const addPossibilities = () => {
     for(let i = 0; i < possibilities.length; i++){
         pickerOptions.push(<Picker.Item key={possibilities[i]} value={possibilities[i]} label={possibilities[i]}>{possibilities[i]}</Picker.Item>)
     }
-    return pickerOptions;
+    // FOR TESTING
+    // TODO ADD ABILITY TO DO FOR ALL OPTIONS
+    //return pickerOptions;
+    return addMassOptions();
 }
 
 const addMassOptions = () => {
@@ -33,8 +36,9 @@ const addVolumeOptions = () => {
 
 const UnitConvertorRow = () => {
     const [inputValue, setInputValue] = useState('0');
-    const [inputUnit, setInputUnit] = useState('mcg');
+    const [inputUnit, setInputUnit] = useState('g');
     const [outputValue, setOutputValue] = useState('0');
+    const [outputUnit, setOutputUnit] = useState('kg')
 
         return ( 
             <>
@@ -45,23 +49,39 @@ const UnitConvertorRow = () => {
                         editable={true} 
                         onChangeText={(value) => {
                             setInputValue(value);
-                            setOutputValue(value.toString());
                         }}
-                    ></TextInput>
+                    />
                     <Picker style={styles.dropdown} 
-                        onValueChange={(value) => { 
-                                setInputUnit(value.toString());
+                        onValueChange={(itemValue) => { 
+                                setInputUnit(itemValue.toString());
                                 console.log(inputUnit);
+                                // get a list of possible conversions
+                                const possibilities = convert().from(inputUnit).possibilities();
+                                
+                                // TODO if current output unit is not in possibilities then change to default value
+                                console.log(`conversion of ${inputValue} ${inputUnit} to ${outputUnit}: ${convert(inputValue).from(inputUnit).to(outputUnit)}`)
+                                setOutputValue(convert(inputValue).from(inputUnit).to(outputUnit).toString());
                             }
                         }
+                        selectedValue={inputUnit}
                     >
                         {addPossibilities()}
                     </Picker>
                 </View>
 
                 <View style={styles.container}>
-                    <TextInput value={outputValue} style={styles.textInputNotEditable} editable={false}></TextInput>
-                    <Picker style={styles.dropdown}>
+                    <TextInput 
+                        value={outputValue} 
+                        style={styles.textInputNotEditable} 
+                        editable={false}
+                    />
+                    <Picker 
+                        style={styles.dropdown}
+                        selectedValue={outputUnit}
+                        onValueChange={(itemValue) => {
+                            setOutputUnit(itemValue.toString());
+                        }}
+                    >
                         {addPossibilities()}
                     </Picker>
                 </View>
