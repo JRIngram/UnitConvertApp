@@ -1,7 +1,11 @@
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 
-const Title = (props: any) => {
+type titleProps = {
+	title: string;
+};
+
+const Title = (props: titleProps): JSX.Element => {
 	return <Text style={styles.title}>{props.title}</Text>;
 };
 

@@ -3,7 +3,7 @@ import { StyleSheet, ScrollView } from 'react-native';
 import Title from '../components/title';
 import UnitConvertorRow from '../components/UnitConvertorRow';
 
-const ConvertorScreen = () => {
+const ConvertorScreen = (): JSX.Element => {
 	return (
 		<ScrollView style={styles.container}>
 			<Title title="Unit Convertor" />

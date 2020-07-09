@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Picker } from '@react-native-community/picker';
+// TO-DO perform ES2015 Import style
+/* eslint-disable */
 const convert = require('convert-units');
+/* eslint-enable */
 
 const volume = convert().from('l').possibilities();
 const mass = convert().from('kg').possibilities();
@@ -30,7 +33,7 @@ const addMassOptions = () => {
 	const pickerOptions = [];
 	for (let i = 0; i < mass.length; i++) {
 		pickerOptions.push(
-			<Picker.Item value={mass[i]} label={mass[i]}>
+			<Picker.Item value={mass[i]} label={mass[i]} key={i}>
 				{mass[i]}
 			</Picker.Item>
 		);
@@ -50,7 +53,7 @@ const addVolumeOptions = () => {
 	return pickerOptions;
 };
 
-const UnitConvertorRow = () => {
+const UnitConvertorRow = (): JSX.Element => {
 	const [inputUnit, setInputUnit] = useState('g');
 	const [inputValue, setInputValue] = useState('1000');
 	const [outputUnit, setOutputUnit] = useState('kg');
