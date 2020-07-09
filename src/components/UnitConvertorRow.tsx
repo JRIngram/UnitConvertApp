@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 const convert = require('convert-units')
@@ -50,6 +50,12 @@ const UnitConvertorRow = () => {
         setOutputValue(convertedValue);
     }
 
+    useEffect(() => {
+        convertAndUpdate();
+    });
+
+
+
     return ( 
         <>
             <View style={styles.container}>
@@ -59,7 +65,7 @@ const UnitConvertorRow = () => {
                     editable={true} 
                     onChangeText={(value) => {
                         setInputValue(value);
-                        convertAndUpdate()
+                        convertAndUpdate();
                     }}
                 />
                 <Picker style={styles.dropdown} 
