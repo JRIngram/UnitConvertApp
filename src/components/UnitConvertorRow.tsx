@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Picker } from '@react-native-community/picker';
-const convert = require('convert-units')
+const convert = require('convert-units');
 
 const volume = convert().from('l').possibilities();
 const mass = convert().from('kg').possibilities();
@@ -9,35 +9,51 @@ const mass = convert().from('kg').possibilities();
 const addPossibilities = () => {
     const possibilities = mass.concat(volume);
     let pickerOptions = [];
-    for(let i = 0; i < possibilities.length; i++){
-        pickerOptions.push(<Picker.Item key={possibilities[i]} value={possibilities[i]} label={possibilities[i]}>{possibilities[i]}</Picker.Item>)
+    for (let i = 0; i < possibilities.length; i++) {
+        pickerOptions.push(
+            <Picker.Item
+                key={possibilities[i]}
+                value={possibilities[i]}
+                label={possibilities[i]}
+            >
+                {possibilities[i]}
+            </Picker.Item>
+        );
     }
     // FOR TESTING
     // TODO ADD ABILITY TO DO FOR ALL OPTIONS
     //return pickerOptions;
     return addMassOptions();
-}
+};
 
 const addMassOptions = () => {
     let pickerOptions = [];
-    for(let i = 0; i < mass.length; i++){
-        pickerOptions.push(<Picker.Item value={mass[i]} label={mass[i]}>{mass[i]}</Picker.Item>)
+    for (let i = 0; i < mass.length; i++) {
+        pickerOptions.push(
+            <Picker.Item value={mass[i]} label={mass[i]}>
+                {mass[i]}
+            </Picker.Item>
+        );
     }
     return pickerOptions;
-}
+};
 
 const addVolumeOptions = () => {
     let pickerOptions = [];
-    for(let i = 0; i < volume.length; i++){
-        pickerOptions.push(<Picker.Item value={volume[i]} label={volume[i]}>{volume[i]}</Picker.Item>)
+    for (let i = 0; i < volume.length; i++) {
+        pickerOptions.push(
+            <Picker.Item value={volume[i]} label={volume[i]}>
+                {volume[i]}
+            </Picker.Item>
+        );
     }
     return pickerOptions;
-}
+};
 
 const UnitConvertorRow = () => {
     const [inputUnit, setInputUnit] = useState('g');
     const [inputValue, setInputValue] = useState('1000');
-    const [outputUnit, setOutputUnit] = useState('kg')
+    const [outputUnit, setOutputUnit] = useState('kg');
     const [outputValue, setOutputValue] = useState('1');
 
     const convertAndUpdate = () => {
@@ -45,36 +61,39 @@ const UnitConvertorRow = () => {
         // get a list of possible conversions
         const possibilities = convert().from(inputUnit).possibilities();
         console.log(possibilities);
-        const convertedValue = convert(inputValue).from(inputUnit).to(outputUnit).toString();
-        console.log(`conversion of ${inputValue} ${inputUnit} to ${outputUnit}: ${convertedValue}`)
+        const convertedValue = convert(inputValue)
+            .from(inputUnit)
+            .to(outputUnit)
+            .toString();
+        console.log(
+            `conversion of ${inputValue} ${inputUnit} to ${outputUnit}: ${convertedValue}`
+        );
         setOutputValue(convertedValue);
-    }
+    };
 
     useEffect(() => {
         convertAndUpdate();
     });
 
-
-
-    return ( 
+    return (
         <>
             <View style={styles.container}>
-                <TextInput 
+                <TextInput
                     value={inputValue.toString()}
                     style={styles.textInputEditable}
-                    editable={true} 
+                    editable={true}
                     onChangeText={(value) => {
                         setInputValue(value);
                         convertAndUpdate();
                     }}
                 />
-                <Picker style={styles.dropdown} 
-                    onValueChange={(itemValue) => { 
-                            setInputUnit(itemValue.toString());
-                            console.log(inputUnit);
-                            convertAndUpdate()
-                        }
-                    }
+                <Picker
+                    style={styles.dropdown}
+                    onValueChange={(itemValue) => {
+                        setInputUnit(itemValue.toString());
+                        console.log(inputUnit);
+                        convertAndUpdate();
+                    }}
                     selectedValue={inputUnit}
                 >
                     {addPossibilities()}
@@ -82,12 +101,12 @@ const UnitConvertorRow = () => {
             </View>
 
             <View style={styles.container}>
-                <TextInput 
-                    value={outputValue} 
-                    style={styles.textInputNotEditable} 
+                <TextInput
+                    value={outputValue}
+                    style={styles.textInputNotEditable}
                     editable={false}
                 />
-                <Picker 
+                <Picker
                     style={styles.dropdown}
                     selectedValue={outputUnit}
                     onValueChange={(itemValue) => {
@@ -98,9 +117,8 @@ const UnitConvertorRow = () => {
                 </Picker>
             </View>
         </>
-    )
-}
-
+    );
+};
 
 const styles = StyleSheet.create({
     textInputEditable: {
@@ -110,7 +128,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         backgroundColor: '#FFF',
         padding: 5,
-        flex: 2
+        flex: 2,
     },
     textInputNotEditable: {
         height: 40,
@@ -119,17 +137,17 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         backgroundColor: '#EEE',
         padding: 5,
-        flex: 2
+        flex: 2,
     },
     dropdown: {
         width: 200,
-        flex: 1
+        flex: 1,
     },
     container: {
-        flex:1, 
-        flexDirection:"row",
-        margin: 15
-    }
+        flex: 1,
+        flexDirection: 'row',
+        margin: 15,
+    },
 });
 
 export default UnitConvertorRow;

@@ -36,8 +36,8 @@
   "private": true,
   "husky": {
     "hooks": {
-      "pre-commit": "npm test:lint",
-      "pre-push": "npm test:lint"
+      "pre-commit": "npm run test:lint",
+      "pre-push": "npm run test:lint"
     }
   }
 }
