@@ -14,7 +14,7 @@ const ConvertorScreen = (): JSX.Element => {
 
 const styles = StyleSheet.create({
 	container: {
-		padding: 10,
+		paddingTop: '5%',
 	},
 });
 

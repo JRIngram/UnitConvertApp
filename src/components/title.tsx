@@ -12,7 +12,8 @@ const Title = (props: titleProps): JSX.Element => {
 const styles = StyleSheet.create({
 	title: {
 		fontSize: 30,
-		paddingBottom: 20,
+		paddingBottom: '2%',
+		paddingLeft: '5%',
 		borderBottomColor: '#000',
 		borderBottomWidth: 5,
 	},
