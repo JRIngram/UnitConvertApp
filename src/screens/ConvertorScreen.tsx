@@ -12,7 +12,13 @@ import UnitConvertorRow from '../components/UnitConvertorRow';
 const getRows = (totalInputRows: number) => {
 	const inputRows = [];
 	for (let i = 0; i < totalInputRows; i++) {
-		inputRows.push(<UnitConvertorRow />);
+		inputRows.push(
+			i % 2 === 0 ? (
+				<UnitConvertorRow containerStyle="even" />
+			) : (
+				<UnitConvertorRow containerStyle="odd" />
+			)
+		);
 	}
 	return inputRows;
 };
@@ -69,16 +75,19 @@ const styles = StyleSheet.create({
 		flex: 1,
 		backgroundColor: '#990000',
 		margin: 10,
+		borderRadius: 25,
 	},
 	addRowButton: {
 		flex: 1,
 		backgroundColor: '#007700',
 		margin: 10,
+		borderRadius: 25,
 	},
 	buttonText: {
 		fontSize: 18,
 		margin: 10,
 		color: '#FFFFFF',
+		textAlign: 'center',
 	},
 });
 

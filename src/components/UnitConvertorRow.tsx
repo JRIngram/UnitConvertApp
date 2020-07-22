@@ -26,7 +26,13 @@ const addInputUnitOptions = () => {
 	return pickerOptions;
 };
 
-const UnitConvertorRow = (): JSX.Element => {
+export interface unitConvertorRowProps {
+	containerStyle: string;
+}
+
+const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
+	props: unitConvertorRowProps
+): JSX.Element => {
 	const [inputUnit, setInputUnit] = useState('g');
 	const [inputValue, setInputValue] = useState('1000');
 	const [outputUnit, setOutputUnit] = useState('kg');
@@ -78,9 +84,14 @@ const UnitConvertorRow = (): JSX.Element => {
 		convertUnits();
 	});
 
+	const containerStyle =
+		props.containerStyle === 'odd'
+			? styles.oddContainer
+			: styles.evenContainer;
+
 	return (
-		<>
-			<View style={styles.container}>
+		<View style={containerStyle}>
+			<View style={styles.formContainer}>
 				<TextInput
 					value={inputValue.toString()}
 					style={styles.textInputEditable}
@@ -100,7 +111,7 @@ const UnitConvertorRow = (): JSX.Element => {
 				</Picker>
 			</View>
 
-			<View style={styles.container}>
+			<View style={styles.formContainer}>
 				<TextInput
 					value={outputValue}
 					style={styles.textInputNotEditable}
@@ -116,7 +127,7 @@ const UnitConvertorRow = (): JSX.Element => {
 					{addOutputUnitOptions()}
 				</Picker>
 			</View>
-		</>
+		</View>
 	);
 };
 
@@ -141,10 +152,16 @@ const styles = StyleSheet.create({
 	dropdown: {
 		flex: 1,
 	},
-	container: {
+	formContainer: {
 		flex: 1,
 		flexDirection: 'row',
 		margin: 15,
+	},
+	evenContainer: {
+		backgroundColor: '#FFF',
+	},
+	oddContainer: {
+		backgroundColor: '#DDD',
 	},
 });
 
