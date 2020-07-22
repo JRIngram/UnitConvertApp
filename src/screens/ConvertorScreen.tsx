@@ -28,40 +28,43 @@ const ConvertorScreen = (): JSX.Element => {
 	const rows = getRows(numberOfInputs);
 
 	return (
-		<ScrollView>
+		<>
 			<Title title="Unit Convertor" />
-			{rows}
-			<View style={styles.buttonContainer}>
-				<TouchableOpacity
-					style={styles.removeRowButton}
-					onPress={() => {
-						// TODO - DON'T ALLOW THE REMOVAL OF FINAL INPUT
-						setNumberOfInputs(numberOfInputs - 1);
-					}}
-				>
-					<Text
-						accessibilityRole="button"
-						accessibilityLabel="Remove an input row"
-						style={styles.buttonText}
+			<ScrollView>
+				{rows}
+				<View style={styles.buttonContainer}>
+					<TouchableOpacity
+						style={styles.removeRowButton}
+						onPress={() => {
+							if (numberOfInputs > 1) {
+								setNumberOfInputs(numberOfInputs - 1);
+							}
+						}}
 					>
-						Remove Input (-)
-					</Text>
-				</TouchableOpacity>
+						<Text
+							accessibilityRole="button"
+							accessibilityLabel="Remove an input row"
+							style={styles.buttonText}
+						>
+							Remove Input (-)
+						</Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity
-					style={styles.addRowButton}
-					onPress={() => setNumberOfInputs(numberOfInputs + 1)}
-				>
-					<Text
-						accessibilityRole="button"
-						accessibilityLabel="Add an input row"
-						style={styles.buttonText}
+					<TouchableOpacity
+						style={styles.addRowButton}
+						onPress={() => setNumberOfInputs(numberOfInputs + 1)}
 					>
-						Add Input (+)
-					</Text>
-				</TouchableOpacity>
-			</View>
-		</ScrollView>
+						<Text
+							accessibilityRole="button"
+							accessibilityLabel="Add an input row"
+							style={styles.buttonText}
+						>
+							Add Input (+)
+						</Text>
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
+		</>
 	);
 };
 

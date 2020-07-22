@@ -14,6 +14,7 @@ const addInputUnitOptions = () => {
 	const pickerOptions = [];
 	for (let i = 0; i < possibilities.length; i++) {
 		pickerOptions.push(
+			//TODO make label the full name rather than the unit name
 			<Picker.Item
 				key={possibilities[i]}
 				value={possibilities[i]}
@@ -44,7 +45,12 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 
 		for (let i = 0; i < unitType.length; i++) {
 			pickerOptions.push(
-				<Picker.Item value={unitType[i]} label={unitType[i]} key={i}>
+				//TODO make label the full name rather than the unit name
+				<Picker.Item
+					value={unitType[i]}
+					label={unitType[i]}
+					key={unitType[i]}
+				>
 					{unitType[i]}
 				</Picker.Item>
 			);
