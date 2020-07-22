@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, Button } from 'react-native';
+import {
+	ScrollView,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
 import Title from '../components/title';
 import UnitConvertorRow from '../components/UnitConvertorRow';
 
@@ -16,29 +22,63 @@ const ConvertorScreen = (): JSX.Element => {
 	const rows = getRows(numberOfInputs);
 
 	return (
-		<ScrollView style={styles.container}>
+		<ScrollView>
 			<Title title="Unit Convertor" />
 			{rows}
-			<Button
-				onPress={() => setNumberOfInputs(numberOfInputs + 1)}
-				title="Add Input (+)"
-				color="#009900"
-			/>
-			<Button
-				onPress={() => {
-					// TODO - DON'T ALLOW THE REMOVAL OF FINAL INPUT
-					setNumberOfInputs(numberOfInputs - 1);
-				}}
-				title="Remove Input (-)"
-				color="#990000"
-			/>
+			<View style={styles.buttonContainer}>
+				<TouchableOpacity
+					style={styles.removeRowButton}
+					onPress={() => {
+						// TODO - DON'T ALLOW THE REMOVAL OF FINAL INPUT
+						setNumberOfInputs(numberOfInputs - 1);
+					}}
+				>
+					<Text
+						accessibilityRole="button"
+						accessibilityLabel="Remove an input row"
+						style={styles.buttonText}
+					>
+						Remove Input (-)
+					</Text>
+				</TouchableOpacity>
+
+				<TouchableOpacity
+					style={styles.addRowButton}
+					onPress={() => setNumberOfInputs(numberOfInputs + 1)}
+				>
+					<Text
+						accessibilityRole="button"
+						accessibilityLabel="Add an input row"
+						style={styles.buttonText}
+					>
+						Add Input (+)
+					</Text>
+				</TouchableOpacity>
+			</View>
 		</ScrollView>
 	);
 };
 
 const styles = StyleSheet.create({
-	container: {
-		paddingTop: '5%',
+	buttonContainer: {
+		flex: 1,
+		flexDirection: 'row',
+		height: '100%',
+	},
+	removeRowButton: {
+		flex: 1,
+		backgroundColor: '#990000',
+		margin: 10,
+	},
+	addRowButton: {
+		flex: 1,
+		backgroundColor: '#007700',
+		margin: 10,
+	},
+	buttonText: {
+		fontSize: 18,
+		margin: 10,
+		color: '#FFFFFF',
 	},
 });
 
