@@ -14,9 +14,9 @@ const getRows = (totalInputRows: number) => {
 	for (let i = 0; i < totalInputRows; i++) {
 		inputRows.push(
 			i % 2 === 0 ? (
-				<UnitConvertorRow containerStyle="even" />
+				<UnitConvertorRow key={i} containerStyle="even" />
 			) : (
-				<UnitConvertorRow containerStyle="odd" />
+				<UnitConvertorRow key={i} containerStyle="odd" />
 			)
 		);
 	}
