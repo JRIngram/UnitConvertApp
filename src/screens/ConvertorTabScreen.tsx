@@ -1,5 +1,4 @@
 import React from 'react';
-import Title from '../components/title';
 import { View, Text } from 'react-native';
 import ConvertorScreen from './ConvertorScreen';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';

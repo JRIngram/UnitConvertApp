@@ -15,6 +15,7 @@ module.exports = {
 	},
 	env: {
 		'react-native/react-native': true,
+		jest: true,
 	},
 	rules: {
 		'react-native/no-unused-styles': 2,
