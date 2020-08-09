@@ -144,6 +144,11 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 					selectedValue={outputUnit}
 					onValueChange={(itemValue) => {
 						setOutputUnit(itemValue.toString());
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							props.rowKey
+						);
 					}}
 				>
 					{addOutputUnitOptions()}
@@ -161,6 +166,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFF',
 		padding: 5,
 		flex: 2,
+		fontSize: 16,
 	},
 	textInputNotEditable: {
 		height: '100%',
@@ -170,6 +176,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#EEE',
 		padding: 5,
 		flex: 2,
+		fontSize: 16,
 	},
 	dropdown: {
 		flex: 1,

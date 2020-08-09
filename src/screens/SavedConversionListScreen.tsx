@@ -23,13 +23,13 @@ const SavedConversionListScreen = () => {
 			}
 
 			console.log(loadedConversions);
-			console.log(typeof loadedConversions);
 			if (loadedConversions) {
 				setSavedList({
 					dataLoaded: true,
 					savedConversion: loadedConversions,
 				});
 			}
+			console.log(savedList);
 		} catch (e) {
 			// error reading value
 			console.error(e);
@@ -47,7 +47,10 @@ const SavedConversionListScreen = () => {
 			return <Text>Loading saved conversions...</Text>;
 		} else {
 			const savedDisplay = `${savedList.savedConversion.conversionOutputValue}${savedList.savedConversion.conversionOutputUnit}`;
-			return <Text>{savedDisplay}</Text>;
+			return;
+			<View>
+				<Text>{savedDisplay}</Text>
+			</View>;
 		}
 	};
 

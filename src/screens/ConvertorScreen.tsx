@@ -3,6 +3,7 @@ import {
 	ScrollView,
 	StyleSheet,
 	Text,
+	TextInput,
 	TouchableOpacity,
 	View,
 } from 'react-native';
@@ -11,8 +12,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const ConvertorScreen = (): JSX.Element => {
 	const [numberOfInputs, setNumberOfInputs] = useState(1);
+	const [conversionTitle, setConversionTitle] = useState('');
 	const [unitConversions, setUnitConversions] = useState({
-		conversionsToSave: [{}],
+		convertedRows: [{}],
 	});
 
 	const updateUnitConversions = (
@@ -25,30 +27,26 @@ const ConvertorScreen = (): JSX.Element => {
 			outputValue: conversionOutputValue,
 			outputUnit: conversionOutputUnit,
 		};
-		const updatedConversionsToSave = [];
+		const updatedConvertedRow = [];
 
 		const forLoopLimit = Math.max(
-			unitConversions.conversionsToSave.length - 1,
+			unitConversions.convertedRows.length - 1,
 			rowKey
 		);
-		console.log(
-			`the length is ${unitConversions.conversionsToSave.length}`
-		);
+		console.log(`the length is ${unitConversions.convertedRows.length}`);
 		for (let i = 0; i <= forLoopLimit; i++) {
 			if (i === rowKey) {
 				console.log(`ping, ${i} vs. ${rowKey}`);
-				updatedConversionsToSave.push(newConversion);
+				updatedConvertedRow.push(newConversion);
 			} else {
 				console.log(`pong, ${i} vs. ${rowKey}`);
-				console.log(unitConversions.conversionsToSave[i]);
-				updatedConversionsToSave.push(
-					unitConversions.conversionsToSave[i]
-				);
+				console.log(unitConversions.convertedRows[i]);
+				updatedConvertedRow.push(unitConversions.convertedRows[i]);
 			}
 		}
 
 		setUnitConversions({
-			conversionsToSave: updatedConversionsToSave,
+			convertedRows: updatedConvertedRow,
 		});
 	};
 
@@ -99,7 +97,15 @@ const ConvertorScreen = (): JSX.Element => {
 
 	return (
 		<>
-			<ScrollView>
+			<ScrollView style={styles.conversionRowList}>
+				<TextInput
+					style={styles.titleText}
+					placeholder="Conversion Title"
+					onChangeText={async (value) => {
+						setConversionTitle(value);
+						console.log(value);
+					}}
+				></TextInput>
 				{rows}
 				<View>
 					<View style={styles.buttonContainer}>
@@ -139,11 +145,13 @@ const ConvertorScreen = (): JSX.Element => {
 						style={styles.saveConversionButton}
 						onPress={async () => {
 							try {
-								console.log('Saving test data...');
-								console.log('Unit conversions:');
-								console.log(unitConversions);
+								const conversionToSave = {
+									title: conversionTitle,
+									unitConversions,
+								};
+
 								const unitConversionsToSave: string = JSON.stringify(
-									unitConversions
+									conversionToSave
 								);
 								await AsyncStorage.setItem(
 									'saved_conversions',
@@ -151,18 +159,6 @@ const ConvertorScreen = (): JSX.Element => {
 								);
 								console.log('Data saved:');
 								console.log(unitConversionsToSave);
-
-								console.log(
-									'************************ TEST ****************************'
-								);
-								const jsonValue = await AsyncStorage.getItem(
-									'saved_conversions'
-								);
-								console.log(jsonValue);
-								jsonValue != null
-									? JSON.parse(jsonValue)
-									: null;
-								console.log(jsonValue);
 							} catch (e) {
 								// saving error
 							}
@@ -188,6 +184,12 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		height: '100%',
 	},
+	buttonText: {
+		fontSize: 18,
+		margin: 10,
+		color: '#FFFFFF',
+		textAlign: 'center',
+	},
 	removeRowButton: {
 		flex: 1,
 		backgroundColor: '#990000',
@@ -206,11 +208,17 @@ const styles = StyleSheet.create({
 		margin: 10,
 		borderRadius: 25,
 	},
-	buttonText: {
-		fontSize: 18,
+	titleText: {
+		height: '100%',
+		borderColor: '#000',
+		borderBottomWidth: 1,
+		padding: 5,
+		flex: 1,
 		margin: 10,
-		color: '#FFFFFF',
-		textAlign: 'center',
+		fontSize: 20,
+	},
+	conversionRowList: {
+		backgroundColor: '#FFF',
 	},
 });
 
