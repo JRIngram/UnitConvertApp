@@ -107,9 +107,8 @@ const ConvertorScreen = (): JSX.Element => {
 								const unitConversionsToSave: string = JSON.stringify(
 									unitConversions
 								);
-								console.log(unitConversionsToSave);
 								await AsyncStorage.setItem(
-									'test_data',
+									'saved_conversions',
 									unitConversionsToSave
 								);
 								console.log('Data saved!');
@@ -126,7 +125,7 @@ const ConvertorScreen = (): JSX.Element => {
 							Save Conversion
 						</Text>
 					</TouchableOpacity>
-					<TouchableOpacity
+					{/* <TouchableOpacity
 						style={styles.saveConversionButton}
 						onPress={async () => {
 							try {
@@ -147,7 +146,7 @@ const ConvertorScreen = (): JSX.Element => {
 						>
 							Read Conversion
 						</Text>
-					</TouchableOpacity>
+					</TouchableOpacity> */}
 				</View>
 			</ScrollView>
 		</>

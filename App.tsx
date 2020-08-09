@@ -2,18 +2,11 @@ import React from 'react';
 import { Platform, StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import ConvertorScreen from './src/screens/ConvertorScreen';
+import SavedConversionListScreen from './src/screens/SavedConversionListScreen';
 import Title from './src/components/title';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();
-
-const TestScreen = () => {
-	return (
-		<View>
-			<Text>I am a test</Text>
-		</View>
-	);
-};
 
 export default function App(): React.ReactNode {
 	return (
@@ -24,7 +17,7 @@ export default function App(): React.ReactNode {
 					<Tab.Screen name="Convertor" component={ConvertorScreen} />
 					<Tab.Screen
 						name="Saved Conversions"
-						component={TestScreen}
+						component={SavedConversionListScreen}
 					/>
 				</Tab.Navigator>
 			</NavigationContainer>

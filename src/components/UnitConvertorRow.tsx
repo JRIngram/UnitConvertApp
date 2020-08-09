@@ -29,7 +29,10 @@ const addInputUnitOptions = () => {
 
 export interface unitConvertorRowProps {
 	containerStyle: string;
-	updateUnitConversions: () => void;
+	updateUnitConversions: (
+		conversionOutputValue: number,
+		conversionOutputUnit: string
+	) => void;
 }
 
 const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
