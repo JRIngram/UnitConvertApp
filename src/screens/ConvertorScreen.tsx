@@ -6,60 +6,146 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import Title from '../components/title';
 import UnitConvertorRow from '../components/UnitConvertorRow';
-
-const getRows = (totalInputRows: number) => {
-	const inputRows = [];
-	for (let i = 0; i < totalInputRows; i++) {
-		inputRows.push(
-			i % 2 === 0 ? (
-				<UnitConvertorRow key={i} containerStyle="even" />
-			) : (
-				<UnitConvertorRow key={i} containerStyle="odd" />
-			)
-		);
-	}
-	return inputRows;
-};
+import AsyncStorage from '@react-native-community/async-storage';
 
 const ConvertorScreen = (): JSX.Element => {
 	const [numberOfInputs, setNumberOfInputs] = useState(1);
+	const [unitConversions, setUnitConversions] = useState({});
+
+	const updateUnitConversions = async (
+		conversionOutputValue: number,
+		conversionOutputUnit: string
+	) => {
+		setUnitConversions({
+			conversionOutputValue,
+			conversionOutputUnit,
+		});
+	};
+
+	const getRows = (totalInputRows: number) => {
+		const inputRows = [];
+		for (let i = 0; i < totalInputRows; i++) {
+			inputRows.push(
+				i % 2 === 0 ? (
+					<UnitConvertorRow
+						key={i}
+						containerStyle="even"
+						updateUnitConversions={(
+							conversionOutputValue: number,
+							conversionOutputUnit: string
+						) => {
+							updateUnitConversions(
+								conversionOutputValue,
+								conversionOutputUnit
+							);
+						}}
+					/>
+				) : (
+					<UnitConvertorRow
+						containerStyle="odd"
+						updateUnitConversions={(
+							conversionOutputValue: number,
+							conversionOutputUnit: string
+						) => {
+							updateUnitConversions(
+								conversionOutputValue,
+								conversionOutputUnit
+							);
+						}}
+					/>
+				)
+			);
+		}
+		return inputRows;
+	};
 	const rows = getRows(numberOfInputs);
 
 	return (
 		<>
-			<Title title="Unit Convertor" />
 			<ScrollView>
 				{rows}
-				<View style={styles.buttonContainer}>
+				<View>
+					<View style={styles.buttonContainer}>
+						<TouchableOpacity
+							style={styles.removeRowButton}
+							onPress={() => {
+								if (numberOfInputs > 1) {
+									setNumberOfInputs(numberOfInputs - 1);
+								}
+							}}
+						>
+							<Text
+								accessibilityRole="button"
+								accessibilityLabel="Remove an input row"
+								style={styles.buttonText}
+							>
+								Remove Input (-)
+							</Text>
+						</TouchableOpacity>
+
+						<TouchableOpacity
+							style={styles.addRowButton}
+							onPress={() =>
+								setNumberOfInputs(numberOfInputs + 1)
+							}
+						>
+							<Text
+								accessibilityRole="button"
+								accessibilityLabel="Add an input row"
+								style={styles.buttonText}
+							>
+								Add Input (+)
+							</Text>
+						</TouchableOpacity>
+					</View>
 					<TouchableOpacity
-						style={styles.removeRowButton}
-						onPress={() => {
-							if (numberOfInputs > 1) {
-								setNumberOfInputs(numberOfInputs - 1);
+						style={styles.saveConversionButton}
+						onPress={async () => {
+							try {
+								console.log('Saving test data...');
+								const unitConversionsToSave: string = JSON.stringify(
+									unitConversions
+								);
+								console.log(unitConversionsToSave);
+								await AsyncStorage.setItem(
+									'test_data',
+									unitConversionsToSave
+								);
+								console.log('Data saved!');
+							} catch (e) {
+								// saving error
 							}
 						}}
 					>
 						<Text
 							accessibilityRole="button"
-							accessibilityLabel="Remove an input row"
+							accessibilityLabel="Save conversion"
 							style={styles.buttonText}
 						>
-							Remove Input (-)
+							Save Conversion
 						</Text>
 					</TouchableOpacity>
-
 					<TouchableOpacity
-						style={styles.addRowButton}
-						onPress={() => setNumberOfInputs(numberOfInputs + 1)}
+						style={styles.saveConversionButton}
+						onPress={async () => {
+							try {
+								console.log('reading data');
+								console.log(
+									await AsyncStorage.getItem('test_data')
+								);
+							} catch (e) {
+								// error reading value
+								console.log('Button go bang');
+							}
+						}}
 					>
 						<Text
 							accessibilityRole="button"
-							accessibilityLabel="Add an input row"
+							accessibilityLabel="Read conversion"
 							style={styles.buttonText}
 						>
-							Add Input (+)
+							Read Conversion
 						</Text>
 					</TouchableOpacity>
 				</View>
@@ -83,6 +169,12 @@ const styles = StyleSheet.create({
 	addRowButton: {
 		flex: 1,
 		backgroundColor: '#007700',
+		margin: 10,
+		borderRadius: 25,
+	},
+	saveConversionButton: {
+		flex: 1,
+		backgroundColor: '#4da6ff',
 		margin: 10,
 		borderRadius: 25,
 	},

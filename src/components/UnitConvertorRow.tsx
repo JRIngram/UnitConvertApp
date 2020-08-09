@@ -29,6 +29,7 @@ const addInputUnitOptions = () => {
 
 export interface unitConvertorRowProps {
 	containerStyle: string;
+	updateUnitConversions: Function;
 }
 
 const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
@@ -104,12 +105,14 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 					editable={true}
 					onChangeText={(value) => {
 						setInputValue(value);
+						props.updateUnitConversions(outputValue, outputUnit);
 					}}
 				/>
 				<Picker
 					style={styles.dropdown}
 					onValueChange={(itemValue) => {
 						setInputUnit(itemValue.toString());
+						props.updateUnitConversions(outputValue, outputUnit);
 					}}
 					selectedValue={inputUnit}
 				>
