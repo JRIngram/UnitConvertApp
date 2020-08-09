@@ -28,10 +28,12 @@ const addInputUnitOptions = () => {
 };
 
 export interface unitConvertorRowProps {
+	rowKey: number;
 	containerStyle: string;
 	updateUnitConversions: (
-		conversionOutputValue: number,
-		conversionOutputUnit: string
+		conversionOutputValue: string,
+		conversionOutputUnit: string,
+		rowKey: number
 	) => void;
 }
 
@@ -78,7 +80,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 		}
 	};
 
-	const convertUnits = () => {
+	const convertUnits = async () => {
 		if (isValidConversion()) {
 			const convertedValue = convert(inputValue)
 				.from(inputUnit)
@@ -106,16 +108,24 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 					value={inputValue.toString()}
 					style={styles.textInputEditable}
 					editable={true}
-					onChangeText={(value) => {
+					onChangeText={async (value) => {
 						setInputValue(value);
-						props.updateUnitConversions(outputValue, outputUnit);
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							props.rowKey
+						);
 					}}
 				/>
 				<Picker
 					style={styles.dropdown}
 					onValueChange={(itemValue) => {
 						setInputUnit(itemValue.toString());
-						props.updateUnitConversions(outputValue, outputUnit);
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							props.rowKey
+						);
 					}}
 					selectedValue={inputUnit}
 				>

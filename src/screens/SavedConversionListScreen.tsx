@@ -46,7 +46,7 @@ const SavedConversionListScreen = () => {
 		if (!savedList.dataLoaded) {
 			return <Text>Loading saved conversions...</Text>;
 		} else {
-			const savedDisplay = `${savedList.savedConversion.conversionOutputValue}${savedList?.savedConversion.conversionOutputUnit}`;
+			const savedDisplay = `${savedList.savedConversion.conversionOutputValue}${savedList.savedConversion.conversionOutputUnit}`;
 			return <Text>{savedDisplay}</Text>;
 		}
 	};

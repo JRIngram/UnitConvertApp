@@ -11,15 +11,44 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const ConvertorScreen = (): JSX.Element => {
 	const [numberOfInputs, setNumberOfInputs] = useState(1);
-	const [unitConversions, setUnitConversions] = useState({});
+	const [unitConversions, setUnitConversions] = useState({
+		conversionsToSave: [{}],
+	});
 
-	const updateUnitConversions = async (
-		conversionOutputValue: number,
-		conversionOutputUnit: string
+	const updateUnitConversions = (
+		conversionOutputValue: string,
+		conversionOutputUnit: string,
+		rowKey: number
 	) => {
+		const newConversion = {
+			rowKey: rowKey,
+			outputValue: conversionOutputValue,
+			outputUnit: conversionOutputUnit,
+		};
+		const updatedConversionsToSave = [];
+
+		const forLoopLimit = Math.max(
+			unitConversions.conversionsToSave.length - 1,
+			rowKey
+		);
+		console.log(
+			`the length is ${unitConversions.conversionsToSave.length}`
+		);
+		for (let i = 0; i <= forLoopLimit; i++) {
+			if (i === rowKey) {
+				console.log(`ping, ${i} vs. ${rowKey}`);
+				updatedConversionsToSave.push(newConversion);
+			} else {
+				console.log(`pong, ${i} vs. ${rowKey}`);
+				console.log(unitConversions.conversionsToSave[i]);
+				updatedConversionsToSave.push(
+					unitConversions.conversionsToSave[i]
+				);
+			}
+		}
+
 		setUnitConversions({
-			conversionOutputValue,
-			conversionOutputUnit,
+			conversionsToSave: updatedConversionsToSave,
 		});
 	};
 
@@ -30,27 +59,34 @@ const ConvertorScreen = (): JSX.Element => {
 				i % 2 === 0 ? (
 					<UnitConvertorRow
 						key={i}
+						rowKey={i}
 						containerStyle="even"
 						updateUnitConversions={(
-							conversionOutputValue: number,
-							conversionOutputUnit: string
+							conversionOutputValue: string,
+							conversionOutputUnit: string,
+							rowKey: number
 						) => {
 							updateUnitConversions(
 								conversionOutputValue,
-								conversionOutputUnit
+								conversionOutputUnit,
+								rowKey
 							);
 						}}
 					/>
 				) : (
 					<UnitConvertorRow
+						key={i}
+						rowKey={i}
 						containerStyle="odd"
 						updateUnitConversions={(
-							conversionOutputValue: number,
-							conversionOutputUnit: string
+							conversionOutputValue: string,
+							conversionOutputUnit: string,
+							rowKey: number
 						) => {
 							updateUnitConversions(
 								conversionOutputValue,
-								conversionOutputUnit
+								conversionOutputUnit,
+								rowKey
 							);
 						}}
 					/>
@@ -104,6 +140,8 @@ const ConvertorScreen = (): JSX.Element => {
 						onPress={async () => {
 							try {
 								console.log('Saving test data...');
+								console.log('Unit conversions:');
+								console.log(unitConversions);
 								const unitConversionsToSave: string = JSON.stringify(
 									unitConversions
 								);
@@ -111,7 +149,20 @@ const ConvertorScreen = (): JSX.Element => {
 									'saved_conversions',
 									unitConversionsToSave
 								);
-								console.log('Data saved!');
+								console.log('Data saved:');
+								console.log(unitConversionsToSave);
+
+								console.log(
+									'************************ TEST ****************************'
+								);
+								const jsonValue = await AsyncStorage.getItem(
+									'saved_conversions'
+								);
+								console.log(jsonValue);
+								jsonValue != null
+									? JSON.parse(jsonValue)
+									: null;
+								console.log(jsonValue);
 							} catch (e) {
 								// saving error
 							}
@@ -125,28 +176,6 @@ const ConvertorScreen = (): JSX.Element => {
 							Save Conversion
 						</Text>
 					</TouchableOpacity>
-					{/* <TouchableOpacity
-						style={styles.saveConversionButton}
-						onPress={async () => {
-							try {
-								console.log('reading data');
-								console.log(
-									await AsyncStorage.getItem('test_data')
-								);
-							} catch (e) {
-								// error reading value
-								console.log('Button go bang');
-							}
-						}}
-					>
-						<Text
-							accessibilityRole="button"
-							accessibilityLabel="Read conversion"
-							style={styles.buttonText}
-						>
-							Read Conversion
-						</Text>
-					</TouchableOpacity> */}
 				</View>
 			</ScrollView>
 		</>
