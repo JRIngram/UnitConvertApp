@@ -150,15 +150,44 @@ const ConvertorScreen = (): JSX.Element => {
 									unitConversions,
 								};
 
-								const unitConversionsToSave: string = JSON.stringify(
-									conversionToSave
+								const loadedConversionString = await AsyncStorage.getItem(
+									'saved_conversions'
 								);
-								await AsyncStorage.setItem(
-									'saved_conversions',
-									unitConversionsToSave
-								);
+
+								if (loadedConversionString === null) {
+									const conversions = {
+										conversions: [conversionToSave],
+									};
+
+									await AsyncStorage.setItem(
+										'saved_conversions',
+										JSON.stringify(conversions)
+									);
+								} else {
+									// GRAB CONVERSIONS array
+									// push unitConversionsToSave to array
+									const loadedConversions = await JSON.parse(
+										loadedConversionString
+									);
+
+									if (loadedConversions.conversions) {
+										loadedConversions.conversions.push(
+											conversionToSave
+										);
+
+										await AsyncStorage.setItem(
+											'saved_conversions',
+											JSON.stringify(loadedConversions)
+										);
+									}
+								}
+
 								console.log('Data saved:');
-								console.log(unitConversionsToSave);
+								const t1 = await AsyncStorage.getItem(
+									'saved_conversions'
+								);
+								if (t1 != null)
+									console.log(await JSON.parse(t1));
 							} catch (e) {
 								// saving error
 							}
