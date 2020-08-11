@@ -3,7 +3,7 @@ import { Platform, StyleSheet, SafeAreaView, View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import ConvertorScreen from './src/screens/ConvertorScreen';
 import SavedConversionListScreen from './src/screens/SavedConversionListScreen';
-import Title from './src/components/title';
+import Title from './src/components/Title';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 const Tab = createMaterialTopTabNavigator();

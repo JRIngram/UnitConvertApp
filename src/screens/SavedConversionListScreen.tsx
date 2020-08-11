@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import SavedConversionsListButton from '../components/SavedConversionsListButton';
+import ListSeperator from '../components/ListSeperator';
+
+interface ISavedList {
+	dataLoaded: boolean;
+	savedConversions: any;
+}
 
 const SavedConversionListScreen = () => {
-	const [savedList, setSavedList] = useState({
+	const [savedList, setSavedList] = useState<ISavedList>({
 		dataLoaded: false,
-		savedConversion: {
-			conversionOutputValue: '',
-			conversionOutputUnit: '',
-		},
+		savedConversions: { conversions: [] },
 	});
 
 	const loadSavedConversions = async () => {
@@ -26,7 +30,7 @@ const SavedConversionListScreen = () => {
 			if (loadedConversions) {
 				setSavedList({
 					dataLoaded: true,
-					savedConversion: loadedConversions,
+					savedConversions: loadedConversions,
 				});
 			}
 			console.log(savedList);
@@ -46,11 +50,24 @@ const SavedConversionListScreen = () => {
 		if (!savedList.dataLoaded) {
 			return <Text>Loading saved conversions...</Text>;
 		} else {
-			const savedDisplay = `${savedList.savedConversion.conversionOutputValue}${savedList.savedConversion.conversionOutputUnit}`;
-			return;
-			<View>
-				<Text>{savedDisplay}</Text>
-			</View>;
+			const savedTitles = [];
+			const conversions = savedList.savedConversions.conversions;
+			for (let i = 0; i < conversions.length; i++) {
+				savedTitles.push(
+					<SavedConversionsListButton title={conversions[i].title} />
+				);
+			}
+			return (
+				<FlatList
+					data={savedList.savedConversions.conversions}
+					renderItem={({ item }) => (
+						<SavedConversionsListButton title={item.title} />
+					)}
+					keyExtractor={(item) => item}
+					ItemSeparatorComponent={ListSeperator}
+				/>
+			);
+			return savedTitles;
 		}
 	};
 
