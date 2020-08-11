@@ -1,8 +1,9 @@
 import React from 'react';
-import { Platform, StyleSheet, SafeAreaView, View, Text } from 'react-native';
+import { Platform, StyleSheet, SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import ConvertorScreen from './src/screens/ConvertorScreen';
 import SavedConversionListScreen from './src/screens/SavedConversionListScreen';
+import ConversionListStack from './src/screens/ConversionListStack';
 import Title from './src/components/Title';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
@@ -17,7 +18,7 @@ export default function App(): React.ReactNode {
 					<Tab.Screen name="Convertor" component={ConvertorScreen} />
 					<Tab.Screen
 						name="Saved Conversions"
-						component={SavedConversionListScreen}
+						component={ConversionListStack}
 					/>
 				</Tab.Navigator>
 			</NavigationContainer>

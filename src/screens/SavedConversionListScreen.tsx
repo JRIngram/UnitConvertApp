@@ -3,13 +3,15 @@ import { Text, View, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SavedConversionsListButton from '../components/SavedConversionsListButton';
 import ListSeperator from '../components/ListSeperator';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useLinkProps } from '@react-navigation/native';
 
 interface ISavedList {
 	dataLoaded: boolean;
 	savedConversions: any;
 }
 
-const SavedConversionListScreen = () => {
+const SavedConversionListScreen = ({ navigation }) => {
 	const [savedList, setSavedList] = useState<ISavedList>({
 		dataLoaded: false,
 		savedConversions: { conversions: [] },
@@ -50,24 +52,24 @@ const SavedConversionListScreen = () => {
 		if (!savedList.dataLoaded) {
 			return <Text>Loading saved conversions...</Text>;
 		} else {
-			const savedTitles = [];
 			const conversions = savedList.savedConversions.conversions;
-			for (let i = 0; i < conversions.length; i++) {
-				savedTitles.push(
-					<SavedConversionsListButton title={conversions[i].title} />
-				);
-			}
 			return (
 				<FlatList
-					data={savedList.savedConversions.conversions}
+					data={conversions}
 					renderItem={({ item }) => (
-						<SavedConversionsListButton title={item.title} />
+						<SavedConversionsListButton
+							onPress={() => {
+								navigation.navigate('Test', {
+									title: item.title,
+								});
+							}}
+							title={item.title}
+						/>
 					)}
 					keyExtractor={(item) => item}
 					ItemSeparatorComponent={ListSeperator}
 				/>
 			);
-			return savedTitles;
 		}
 	};
 

@@ -17,6 +17,7 @@
 		"@react-navigation/material-bottom-tabs": "^5.2.16",
 		"@react-navigation/material-top-tabs": "^5.2.16",
 		"@react-navigation/native": "^5.7.3",
+		"@react-navigation/stack": "^5.9.0",
 		"@types/jest": "^26.0.9",
 		"@types/react-native-vector-icons": "^6.4.5",
 		"convert-units": "^2.3.4",
@@ -31,7 +32,8 @@
 		"react-native-screens": "~2.9.0",
 		"react-native-tab-view": "^2.15.1",
 		"react-native-vector-icons": "^7.0.0",
-		"react-native-web": "~0.11.7"
+		"react-native-web": "~0.11.7",
+		"@react-native-community/masked-view": "0.1.10"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.11.1",

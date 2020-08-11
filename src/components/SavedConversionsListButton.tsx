@@ -2,14 +2,19 @@ import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-interface SavedConversionButtonProps {
+interface ISavedConversionsButton {
 	title: string;
+	onPress: Function;
 }
 
-const SavedConversionsButton = (props: SavedConversionButtonProps) => {
+const SavedConversionsButton = (props: ISavedConversionsButton) => {
 	return (
 		<View style={styles.savedConversionButtonView}>
-			<TouchableOpacity>
+			<TouchableOpacity
+				onPress={() => {
+					props.onPress();
+				}}
+			>
 				<View style={styles.savedConversionLayout}>
 					<Text style={styles.buttonText}>{props.title}</Text>
 					<Icon
