@@ -3,8 +3,6 @@ import { Text, View, FlatList } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SavedConversionsListButton from '../components/SavedConversionsListButton';
 import ListSeperator from '../components/ListSeperator';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useLinkProps } from '@react-navigation/native';
 
 interface ISavedList {
 	dataLoaded: boolean;
@@ -28,7 +26,6 @@ const SavedConversionListScreen = ({ navigation }) => {
 				loadedConversions = await JSON.parse(loadedConversionString);
 			}
 
-			console.log(loadedConversions);
 			if (loadedConversions) {
 				setSavedList({
 					dataLoaded: true,
@@ -59,7 +56,7 @@ const SavedConversionListScreen = ({ navigation }) => {
 					renderItem={({ item }) => (
 						<SavedConversionsListButton
 							onPress={() => {
-								navigation.navigate('Test', {
+								navigation.navigate('SavedConversion', {
 									title: item.title,
 								});
 							}}

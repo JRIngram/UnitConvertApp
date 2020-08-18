@@ -5,6 +5,7 @@ import Title from './src/components/Title';
 import { createStackNavigator } from '@react-navigation/stack';
 import MaterialTopTabs from './src/screens/MaterialTopTabs';
 import TestScreen from './src/screens/TestScreen';
+import SavedConversionScreen from './src/screens/SavedConversionScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,8 +23,8 @@ export default function App(): React.ReactNode {
 						}}
 					/>
 					<Stack.Screen
-						name="Test"
-						component={TestScreen}
+						name="SavedConversion"
+						component={SavedConversionScreen}
 						options={{
 							headerBackTitleVisible: false,
 							headerTitle: '',
@@ -40,12 +41,5 @@ const styles = StyleSheet.create({
 	androidSafeArea: {
 		flex: 1,
 		paddingTop: Platform.OS === 'android' ? 25 : 0,
-	},
-	title: {
-		fontSize: 30,
-		paddingBottom: '2%',
-		paddingLeft: '5%',
-		borderBottomColor: '#000',
-		borderBottomWidth: 5,
 	},
 });

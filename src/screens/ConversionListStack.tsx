@@ -3,6 +3,7 @@ import { View, Text } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import TestScreen from './TestScreen';
 import SavedConversionListScreen from './SavedConversionListScreen';
+import SavedConversionScreen from './SavedConversionScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,8 +21,8 @@ const ConversionList = () => {
 					headerTitle: '',
 					gestureDirection: 'horizontal-inverted',
 				}}
-				name="Test"
-				component={TestScreen}
+				name="SavedConversion"
+				component={SavedConversionScreen}
 			/>
 		</Stack.Navigator>
 	);
