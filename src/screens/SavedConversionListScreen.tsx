@@ -18,7 +18,6 @@ const SavedConversionListScreen = ({ navigation }) => {
 
 	const loadSavedConversions = async () => {
 		try {
-			console.log('Reading data...');
 			const loadedConversionString = await AsyncStorage.getItem(
 				'saved_conversions'
 			);
@@ -33,7 +32,6 @@ const SavedConversionListScreen = ({ navigation }) => {
 					savedConversions: loadedConversions,
 				});
 			}
-			console.log(savedList);
 		} catch (e) {
 			// error reading value
 			console.error(e);

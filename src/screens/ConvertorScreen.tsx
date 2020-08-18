@@ -35,14 +35,10 @@ const ConvertorScreen = (): JSX.Element => {
 			unitConversions.convertedRows.length - 1,
 			rowKey
 		);
-		console.log(`the length is ${unitConversions.convertedRows.length}`);
 		for (let i = 0; i <= forLoopLimit; i++) {
 			if (i === rowKey) {
-				console.log(`ping, ${i} vs. ${rowKey}`);
 				updatedConvertedRow.push(newConversion);
 			} else {
-				console.log(`pong, ${i} vs. ${rowKey}`);
-				console.log(unitConversions.convertedRows[i]);
 				updatedConvertedRow.push(unitConversions.convertedRows[i]);
 			}
 		}
@@ -109,7 +105,6 @@ const ConvertorScreen = (): JSX.Element => {
 					placeholder="Conversion Title"
 					onChangeText={async (value) => {
 						setConversionTitle(value);
-						console.log(value);
 					}}
 				></TextInput>
 				{rows}
@@ -156,8 +151,6 @@ const ConvertorScreen = (): JSX.Element => {
 									unitConversions,
 								};
 
-								console.log(unitConversions);
-
 								const loadedConversionString = await AsyncStorage.getItem(
 									'saved_conversions'
 								);
@@ -189,13 +182,6 @@ const ConvertorScreen = (): JSX.Element => {
 										);
 									}
 								}
-
-								console.log('Data saved:');
-								const t1 = await AsyncStorage.getItem(
-									'saved_conversions'
-								);
-								if (t1 != null)
-									console.log(await JSON.parse(t1));
 							} catch (e) {
 								// saving error
 							}

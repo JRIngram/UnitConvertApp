@@ -20,7 +20,6 @@ const SavedConversionScreen = ({ route }) => {
 		let loadedConversions = { conversions: [] };
 		let conversion = null;
 
-		//AsyncStorage.clear();
 		const loadedConversionString = await AsyncStorage.getItem(
 			'saved_conversions'
 		);
@@ -34,9 +33,6 @@ const SavedConversionScreen = ({ route }) => {
 				}
 				return false;
 			})[0];
-			console.log(`conversion is ${JSON.stringify(conversion)}`);
-			console.log('we here');
-			console.log(conversion.unitConversions.convertedRows);
 			const convertedRows = conversion.unitConversions.convertedRows;
 			setDataLoaded(true);
 			setConvertedRows(convertedRows);

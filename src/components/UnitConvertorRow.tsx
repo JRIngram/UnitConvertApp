@@ -96,7 +96,13 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 
 	useEffect(() => {
 		convertUnits();
-	});
+		props.updateUnitConversions(
+			outputValue,
+			outputUnit,
+			itemName,
+			props.rowKey
+		);
+	}, [inputUnit, inputValue, outputUnit, outputValue, itemName]);
 
 	const containerStyle =
 		props.containerStyle === 'odd'
@@ -110,7 +116,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 					value={inputValue.toString()}
 					style={styles.textInputEditable}
 					editable={true}
-					onChangeText={async (value) => {
+					onChangeText={(value) => {
 						setInputValue(value);
 						props.updateUnitConversions(
 							outputValue,
