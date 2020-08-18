@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, AsyncStorage } from 'react-native';
+import { View, Text, FlatList, AsyncStorage, StyleSheet } from 'react-native';
+import ListSeperator from '../components/ListSeperator';
 
 const SavedConversionScreen = ({ route }) => {
 	const [dataLoaded, setDataLoaded] = useState(false);
@@ -47,11 +48,15 @@ const SavedConversionScreen = ({ route }) => {
 					data={convertedRows}
 					renderItem={({ item }) => {
 						return (
-							<Text>
-								{item.outputValue} {item.outputUnit}
-							</Text>
+							<View style={styles.textContainer}>
+								<Text style={styles.text}>
+									{item.outputValue}
+									{item.outputUnit}
+								</Text>
+							</View>
 						);
 					}}
+					ItemSeparatorComponent={ListSeperator}
 				/>
 			);
 		}
@@ -59,5 +64,17 @@ const SavedConversionScreen = ({ route }) => {
 
 	return <View>{displayConvertedRows()}</View>;
 };
+
+const styles = StyleSheet.create({
+	text: {
+		fontSize: 18,
+	},
+	textContainer: {
+		backgroundColor: '#FFF',
+		height: 75,
+		justifyContent: 'center',
+		paddingLeft: 20,
+	},
+});
 
 export default SavedConversionScreen;
