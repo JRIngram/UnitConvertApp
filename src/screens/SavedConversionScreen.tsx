@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, AsyncStorage, StyleSheet } from 'react-native';
 import ListSeperator from '../components/ListSeperator';
 
+/*eslint-disable*/
 const SavedConversionScreen = ({ route }) => {
+	/*eslint-enable*/
 	const [dataLoaded, setDataLoaded] = useState(false);
 	const [convertedRows, setConvertedRows] = useState([]);
 
 	useEffect(() => {
 		if (!dataLoaded) {
+			/*eslint-disable*/
 			loadConversion(route.params.title);
+			/*eslint-enable*/
 		}
 	});
 
@@ -16,6 +20,7 @@ const SavedConversionScreen = ({ route }) => {
 		let loadedConversions = { conversions: [] };
 		let conversion = null;
 
+		//AsyncStorage.clear();
 		const loadedConversionString = await AsyncStorage.getItem(
 			'saved_conversions'
 		);
@@ -51,10 +56,13 @@ const SavedConversionScreen = ({ route }) => {
 							<View style={styles.textContainer}>
 								<Text style={styles.text}>
 									{item.outputValue}
-									{item.outputUnit}
+									{item.outputUnit} {item.itemName}
 								</Text>
 							</View>
 						);
+					}}
+					keyExtractor={(item, index) => {
+						return `${item.itemName}-${index}`;
 					}}
 					ItemSeparatorComponent={ListSeperator}
 				/>

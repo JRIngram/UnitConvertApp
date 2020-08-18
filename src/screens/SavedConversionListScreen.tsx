@@ -8,8 +8,9 @@ interface ISavedList {
 	dataLoaded: boolean;
 	savedConversions: any;
 }
-
+/*eslint-disable*/
 const SavedConversionListScreen = ({ navigation }) => {
+	/*eslint-enable*/
 	const [savedList, setSavedList] = useState<ISavedList>({
 		dataLoaded: false,
 		savedConversions: { conversions: [] },
@@ -56,9 +57,11 @@ const SavedConversionListScreen = ({ navigation }) => {
 					renderItem={({ item }) => (
 						<SavedConversionsListButton
 							onPress={() => {
+								/*eslint-disable*/
 								navigation.navigate('SavedConversion', {
 									title: item.title,
 								});
+								/*eslint-enable*/
 							}}
 							title={item.title}
 						/>

@@ -33,6 +33,7 @@ export interface unitConvertorRowProps {
 	updateUnitConversions: (
 		conversionOutputValue: string,
 		conversionOutputUnit: string,
+		conversionName: string,
 		rowKey: number
 	) => void;
 }
@@ -44,6 +45,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 	const [inputValue, setInputValue] = useState('1000');
 	const [outputUnit, setOutputUnit] = useState('kg');
 	const [outputValue, setOutputValue] = useState('1');
+	const [itemName, setItemName] = useState('');
 
 	const addOutputUnitOptions = () => {
 		const pickerOptions = [];
@@ -113,6 +115,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 						props.updateUnitConversions(
 							outputValue,
 							outputUnit,
+							itemName,
 							props.rowKey
 						);
 					}}
@@ -124,6 +127,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 						props.updateUnitConversions(
 							outputValue,
 							outputUnit,
+							itemName,
 							props.rowKey
 						);
 					}}
@@ -147,12 +151,28 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 						props.updateUnitConversions(
 							outputValue,
 							outputUnit,
+							itemName,
 							props.rowKey
 						);
 					}}
 				>
 					{addOutputUnitOptions()}
 				</Picker>
+			</View>
+			<View style={styles.formContainer}>
+				<TextInput
+					style={styles.textInputEditable}
+					placeholder="Item name"
+					onChangeText={(value: string) => {
+						setItemName(value);
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							itemName,
+							props.rowKey
+						);
+					}}
+				/>
 			</View>
 		</View>
 	);

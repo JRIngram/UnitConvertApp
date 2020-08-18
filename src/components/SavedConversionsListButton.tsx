@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 interface ISavedConversionsButton {
 	title: string;
-	onPress: Function;
+	onPress: () => void;
 }
 
 const SavedConversionsButton = (props: ISavedConversionsButton) => {

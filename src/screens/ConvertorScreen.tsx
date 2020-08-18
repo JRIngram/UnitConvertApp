@@ -20,12 +20,14 @@ const ConvertorScreen = (): JSX.Element => {
 	const updateUnitConversions = (
 		conversionOutputValue: string,
 		conversionOutputUnit: string,
+		conversionName: string,
 		rowKey: number
 	) => {
 		const newConversion = {
 			rowKey: rowKey,
 			outputValue: conversionOutputValue,
 			outputUnit: conversionOutputUnit,
+			itemName: conversionName,
 		};
 		const updatedConvertedRow = [];
 
@@ -62,11 +64,13 @@ const ConvertorScreen = (): JSX.Element => {
 						updateUnitConversions={(
 							conversionOutputValue: string,
 							conversionOutputUnit: string,
+							conversionName: string,
 							rowKey: number
 						) => {
 							updateUnitConversions(
 								conversionOutputValue,
 								conversionOutputUnit,
+								conversionName,
 								rowKey
 							);
 						}}
@@ -79,11 +83,13 @@ const ConvertorScreen = (): JSX.Element => {
 						updateUnitConversions={(
 							conversionOutputValue: string,
 							conversionOutputUnit: string,
+							conversionName: string,
 							rowKey: number
 						) => {
 							updateUnitConversions(
 								conversionOutputValue,
 								conversionOutputUnit,
+								conversionName,
 								rowKey
 							);
 						}}
@@ -149,6 +155,8 @@ const ConvertorScreen = (): JSX.Element => {
 									title: conversionTitle,
 									unitConversions,
 								};
+
+								console.log(unitConversions);
 
 								const loadedConversionString = await AsyncStorage.getItem(
 									'saved_conversions'
