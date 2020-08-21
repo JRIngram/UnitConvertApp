@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SavedConversionsListButton from '../components/SavedConversionsListButton';
 import ListSeperator from '../components/ListSeperator';
@@ -14,6 +14,14 @@ const SavedConversionListScreen = ({ navigation }) => {
 	const [savedList, setSavedList] = useState<ISavedList>({
 		dataLoaded: false,
 		savedConversions: { conversions: [] },
+	});
+
+	const onScreenLoad = navigation.addListener('focus', () => {
+		setSavedList({
+			dataLoaded: false,
+			savedConversions: { conversions: [] },
+		});
+		loadSavedConversions();
 	});
 
 	const loadSavedConversions = async () => {
@@ -46,7 +54,7 @@ const SavedConversionListScreen = ({ navigation }) => {
 
 	const displaySavedConversions = () => {
 		if (!savedList.dataLoaded) {
-			return <Text>Loading saved conversions...</Text>;
+			return <ActivityIndicator size="large" />;
 		} else {
 			const conversions = savedList.savedConversions.conversions;
 			return (
@@ -71,7 +79,14 @@ const SavedConversionListScreen = ({ navigation }) => {
 		}
 	};
 
-	return <View>{displaySavedConversions()}</View>;
+	return <View style={styles.container}>{displaySavedConversions()}</View>;
 };
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+	},
+});
 
 export default SavedConversionListScreen;
