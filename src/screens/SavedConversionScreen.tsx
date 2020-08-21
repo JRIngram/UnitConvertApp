@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, AsyncStorage, StyleSheet } from 'react-native';
+import {
+	View,
+	Text,
+	FlatList,
+	AsyncStorage,
+	StyleSheet,
+	ActivityIndicator,
+} from 'react-native';
 import ListSeperator from '../components/ListSeperator';
 
 /*eslint-disable*/
@@ -37,12 +44,11 @@ const SavedConversionScreen = ({ route }) => {
 			setDataLoaded(true);
 			setConvertedRows(convertedRows);
 		}
-		return <Text>Loading Data</Text>;
 	};
 
 	const displayConvertedRows = () => {
 		if (convertedRows.length === 0) {
-			return <Text>Loading data...</Text>;
+			return <ActivityIndicator size="large" />;
 		} else {
 			return (
 				<FlatList
