@@ -16,7 +16,9 @@ const SavedConversionListScreen = ({ navigation }) => {
 		savedConversions: { conversions: [] },
 	});
 
+	/*eslint-disable*/
 	const onScreenLoad = navigation.addListener('focus', () => {
+		/*eslint-enable*/
 		setSavedList({
 			dataLoaded: false,
 			savedConversions: { conversions: [] },
