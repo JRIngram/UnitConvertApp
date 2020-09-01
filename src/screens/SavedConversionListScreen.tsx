@@ -74,7 +74,7 @@ const SavedConversionListScreen = ({ navigation }) => {
 							title={item.title}
 						/>
 					)}
-					keyExtractor={(item) => item}
+					keyExtractor={(item) => item.title}
 					ItemSeparatorComponent={ListSeperator}
 				/>
 			);
