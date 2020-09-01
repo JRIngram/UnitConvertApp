@@ -58,7 +58,7 @@ const SavedConversionListScreen = ({ navigation }) => {
 		if (!savedList.dataLoaded) {
 			return <ActivityIndicator size="large" />;
 		} else {
-			const conversions = savedList.savedConversions.conversions;
+			const conversions = savedList.savedConversions;
 			return (
 				<FlatList
 					data={conversions}

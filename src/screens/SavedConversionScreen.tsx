@@ -30,11 +30,12 @@ const SavedConversionScreen = ({ route }) => {
 		const loadedConversionString = await AsyncStorage.getItem(
 			'saved_conversions'
 		);
+		console.log(loadedConversionString);
 
 		if (loadedConversionString != null) {
 			loadedConversions = await JSON.parse(loadedConversionString);
 			loadedConversionString;
-			conversion = loadedConversions.conversions.filter((conversion) => {
+			conversion = loadedConversions.filter((conversion) => {
 				if (conversion.title) {
 					return conversion.title === conversionTitle;
 				}

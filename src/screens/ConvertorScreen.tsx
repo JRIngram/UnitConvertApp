@@ -130,7 +130,7 @@ const ConvertorScreen = (): JSX.Element => {
 					loadedConversionString
 				);
 
-				if (loadedConversions.conversions) {
+				if (loadedConversions) {
 					const findDuplicateTitles = (
 						title1: string,
 						title2: string
@@ -138,7 +138,7 @@ const ConvertorScreen = (): JSX.Element => {
 						return title1 === title2;
 					};
 
-					const duplicateTitles = loadedConversions.conversions.filter(
+					const duplicateTitles = loadedConversions.filter(
 						(conversion: { title: string }) => {
 							return findDuplicateTitles(
 								conversion.title,
@@ -147,14 +147,12 @@ const ConvertorScreen = (): JSX.Element => {
 						}
 					);
 
-					console.log(duplicateTitles);
-
 					if (duplicateTitles.length > 0) {
 						setErrorMessage(
 							'A conversion with this title already exists!'
 						);
 					} else {
-						loadedConversions.conversions.push(conversionToSave);
+						loadedConversions.push(conversionToSave);
 						await AsyncStorage.setItem(
 							'saved_conversions',
 							JSON.stringify(loadedConversions)
