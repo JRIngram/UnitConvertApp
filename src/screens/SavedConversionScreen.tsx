@@ -8,6 +8,7 @@ import {
 	ActivityIndicator,
 } from 'react-native';
 import ListSeperator from '../components/ListSeperator';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 /*eslint-disable*/
 const SavedConversionScreen = ({ route }) => {
@@ -73,7 +74,17 @@ const SavedConversionScreen = ({ route }) => {
 		}
 	};
 
-	return <View>{displayConvertedRows()}</View>;
+	return (
+		<View style={styles.listContainer}>
+			{displayConvertedRows()}
+			<FloatingActionButton
+				icon="delete-forever"
+				onPress={() => {
+					console.log('FAB pressed');
+				}}
+			/>
+		</View>
+	);
 };
 
 const styles = StyleSheet.create({
@@ -85,6 +96,9 @@ const styles = StyleSheet.create({
 		height: 75,
 		justifyContent: 'center',
 		paddingLeft: 20,
+	},
+	listContainer: {
+		height: '100%',
 	},
 });
 
