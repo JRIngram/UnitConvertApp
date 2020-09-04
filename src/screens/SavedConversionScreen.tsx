@@ -9,9 +9,10 @@ import {
 } from 'react-native';
 import ListSeperator from '../components/ListSeperator';
 import FloatingActionButton from '../components/FloatingActionButton';
+import { NavigationContainer } from '@react-navigation/native';
 
 /*eslint-disable*/
-const SavedConversionScreen = ({ route }) => {
+const SavedConversionScreen = ({ route, navigation }) => {
 	/*eslint-enable*/
 	const [dataLoaded, setDataLoaded] = useState(false);
 	const [convertedRows, setConvertedRows] = useState([]);
@@ -36,7 +37,7 @@ const SavedConversionScreen = ({ route }) => {
 		if (loadedConversionString != null) {
 			loadedConversions = await JSON.parse(loadedConversionString);
 			loadedConversionString;
-			conversion = loadedConversions.filter((conversion) => {
+			conversion = loadedConversions.conversions.filter((conversion) => {
 				if (conversion.title) {
 					return conversion.title === conversionTitle;
 				}
@@ -81,6 +82,7 @@ const SavedConversionScreen = ({ route }) => {
 				icon="delete-forever"
 				onPress={() => {
 					console.log('FAB pressed');
+					navigation.goBack();
 				}}
 			/>
 		</View>
