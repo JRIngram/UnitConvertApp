@@ -114,7 +114,6 @@ const ConvertorScreen = (): JSX.Element => {
 				'saved_conversions'
 			);
 
-			console.log('Hitme');
 			if (loadedConversionString === null) {
 				const conversions = {
 					conversions: [conversionToSave],
@@ -124,15 +123,12 @@ const ConvertorScreen = (): JSX.Element => {
 					'saved_conversions',
 					JSON.stringify(conversions)
 				);
-				console.log('Bareback savey');
 			} else {
 				// GRAB CONVERSIONS array
 				// push unitConversionsToSave to array
 				const loadedConversions = await JSON.parse(
 					loadedConversionString
 				);
-				console.log('pong');
-				console.log(loadedConversions);
 				if (loadedConversions.conversions) {
 					const findDuplicateTitles = (
 						title1: string,
@@ -140,7 +136,6 @@ const ConvertorScreen = (): JSX.Element => {
 					) => {
 						return title1 === title2;
 					};
-					console.log('pingy');
 					const duplicateTitles = loadedConversions.conversions.filter(
 						(conversion: { title: string }) => {
 							return findDuplicateTitles(
@@ -160,7 +155,6 @@ const ConvertorScreen = (): JSX.Element => {
 							'saved_conversions',
 							JSON.stringify(loadedConversions)
 						);
-						console.log('Safey savey');
 					}
 				}
 			}

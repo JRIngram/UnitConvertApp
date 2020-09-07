@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {
-	View,
-	Text,
-	FlatList,
-	AsyncStorage,
-	StyleSheet,
 	ActivityIndicator,
+	Alert,
+	AsyncStorage,
+	FlatList,
+	StyleSheet,
+	Text,
+	View,
 } from 'react-native';
 import ListSeperator from '../components/ListSeperator';
 import FloatingActionButton from '../components/FloatingActionButton';
@@ -32,11 +33,9 @@ const SavedConversionScreen = ({ route, navigation }) => {
 		const loadedConversionString = await AsyncStorage.getItem(
 			'saved_conversions'
 		);
-		console.log(loadedConversionString);
 
 		if (loadedConversionString != null) {
 			loadedConversions = await JSON.parse(loadedConversionString);
-			loadedConversionString;
 			conversion = loadedConversions.conversions.filter((conversion) => {
 				if (conversion.title) {
 					return conversion.title === conversionTitle;
@@ -80,9 +79,56 @@ const SavedConversionScreen = ({ route, navigation }) => {
 			{displayConvertedRows()}
 			<FloatingActionButton
 				icon="delete-forever"
-				onPress={() => {
-					console.log('FAB pressed');
-					navigation.goBack();
+				onPress={async () => {
+					/* eslint-disable */
+					const { title } = route.params;
+					/* eslint-enable */
+					Alert.alert(
+						`Delete ${title}?`,
+						`You are about to delete ${title}! Are you sure?\nThis cannot be undone.`,
+						[
+							{
+								text: 'Cancel',
+								style: 'cancel',
+							},
+							{
+								text: `Delete ${title}`,
+								onPress: async () => {
+									let loadedConversions = { conversions: [] };
+
+									const loadedConversionString = await AsyncStorage.getItem(
+										'saved_conversions'
+									);
+
+									if (loadedConversionString != null) {
+										loadedConversions = await JSON.parse(
+											loadedConversionString
+										);
+
+										loadedConversions.conversions = loadedConversions.conversions.filter(
+											(conversion) => {
+												if (
+													conversion.title === title
+												) {
+													return false;
+												}
+												return true;
+											}
+										);
+
+										await AsyncStorage.setItem(
+											'saved_conversions',
+											JSON.stringify(loadedConversions)
+										);
+									}
+									/* eslint-disable */
+									navigation.goBack();
+									/* eslint-enable */
+								},
+							},
+						],
+						{ cancelable: true }
+					);
 				}}
 			/>
 		</View>
