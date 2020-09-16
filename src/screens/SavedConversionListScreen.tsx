@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SavedConversionsListButton from '../components/SavedConversionsListButton';
@@ -9,7 +9,7 @@ interface ISavedList {
 	savedConversions: any;
 }
 /*eslint-disable*/
-const SavedConversionListScreen = ({ navigation }) => {
+const SavedConversionListScreen: React.FC = ({ navigation }): ReactElement => {
 	/*eslint-enable*/
 	const [savedList, setSavedList] = useState<ISavedList>({
 		dataLoaded: false,

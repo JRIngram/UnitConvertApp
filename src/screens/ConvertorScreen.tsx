@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ReactElement } from 'react';
 import {
 	ScrollView,
 	StyleSheet,
@@ -10,7 +10,7 @@ import {
 import UnitConvertorRow from '../components/UnitConvertorRow';
 import AsyncStorage from '@react-native-community/async-storage';
 
-const ConvertorScreen = (): JSX.Element => {
+const ConvertorScreen: React.FC = (): ReactElement => {
 	const [numberOfInputs, setNumberOfInputs] = useState(1);
 	const [conversionTitle, setConversionTitle] = useState('');
 	const [unitConversions, setUnitConversions] = useState({

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import {
 	ActivityIndicator,
 	Alert,
@@ -10,10 +10,12 @@ import {
 } from 'react-native';
 import ListSeperator from '../components/ListSeperator';
 import FloatingActionButton from '../components/FloatingActionButton';
-import { NavigationContainer } from '@react-navigation/native';
 
 /*eslint-disable*/
-const SavedConversionScreen = ({ route, navigation }) => {
+const SavedConversionScreen: React.FC = ({
+	route,
+	navigation,
+}): ReactElement => {
 	/*eslint-enable*/
 	const [dataLoaded, setDataLoaded] = useState(false);
 	const [convertedRows, setConvertedRows] = useState([]);

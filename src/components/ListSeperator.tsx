@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-const ListSeperator = (): JSX.Element => {
+const ListSeperator: React.FC = (): ReactElement => {
 	return <View style={styles.seperator}></View>;
 };
 

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import SavedConversionListScreen from './SavedConversionListScreen';
 import SavedConversionScreen from './SavedConversionScreen';
 
 const Stack = createStackNavigator();
 
-const ConversionList = () => {
+const ConversionList: React.FC = (): ReactElement => {
 	return (
 		<Stack.Navigator initialRouteName="ConversionList">
 			<Stack.Screen

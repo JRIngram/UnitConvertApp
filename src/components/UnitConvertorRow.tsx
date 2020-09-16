@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 // TO-DO perform ES2015 Import style
@@ -40,7 +40,7 @@ export interface unitConvertorRowProps {
 
 const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 	props: unitConvertorRowProps
-): JSX.Element => {
+): ReactElement => {
 	const [inputUnit, setInputUnit] = useState('g');
 	const [inputValue, setInputValue] = useState('1000');
 	const [outputUnit, setOutputUnit] = useState('kg');

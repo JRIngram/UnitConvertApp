@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,7 +12,7 @@ const FloatingActionButton = ({
 	icon,
 	iconColor = '#000',
 	onPress,
-}: IFloatingActionButton): JSX.Element => {
+}: IFloatingActionButton): ReactElement => {
 	return (
 		<TouchableOpacity style={styles.FAB} onPress={onPress}>
 			<Icon name={icon} size={30} color={iconColor} />
