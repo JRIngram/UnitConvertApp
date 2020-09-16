@@ -42,7 +42,7 @@ const SavedConversionScreen = ({ route, navigation }) => {
 				}
 				return false;
 			})[0];
-			const convertedRows = conversion.unitConversions.convertedRows;
+			const { convertedRows } = conversion.unitConversions;
 			setDataLoaded(true);
 			setConvertedRows(convertedRows);
 		}
@@ -56,11 +56,12 @@ const SavedConversionScreen = ({ route, navigation }) => {
 				<FlatList
 					data={convertedRows}
 					renderItem={({ item }) => {
+						const { outputValue, outputUnit, itemName } = item;
 						return (
 							<View style={styles.textContainer}>
 								<Text style={styles.text}>
-									{item.outputValue}
-									{item.outputUnit} {item.itemName}
+									{outputValue}
+									{outputUnit} {itemName}
 								</Text>
 							</View>
 						);

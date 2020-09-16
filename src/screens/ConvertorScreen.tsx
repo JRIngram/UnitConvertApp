@@ -124,8 +124,6 @@ const ConvertorScreen = (): JSX.Element => {
 					JSON.stringify(conversions)
 				);
 			} else {
-				// GRAB CONVERSIONS array
-				// push unitConversionsToSave to array
 				const loadedConversions = await JSON.parse(
 					loadedConversionString
 				);
