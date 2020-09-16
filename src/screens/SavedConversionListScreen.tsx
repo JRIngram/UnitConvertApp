@@ -1,8 +1,9 @@
-import React, { useState, useEffect, ReactElement } from 'react';
+import React, { useState, useCallback, ReactElement } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SavedConversionsListButton from '../components/SavedConversionsListButton';
 import ListSeperator from '../components/ListSeperator';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface ISavedList {
 	dataLoaded: boolean;
@@ -16,17 +17,22 @@ const SavedConversionListScreen: React.FC = ({ navigation }): ReactElement => {
 		savedConversions: { conversions: [] },
 	});
 
-	/*eslint-disable*/
-	const onScreenLoad = navigation.addListener('focus', () => {
-		/*eslint-enable*/
-		setSavedList({
-			dataLoaded: false,
-			savedConversions: { conversions: [] },
-		});
-		loadSavedConversions();
-	});
+	useFocusEffect(
+		useCallback(() => {
+			if (!savedList.dataLoaded) {
+				loadSavedConversions();
+			}
+			return () => {
+				setSavedList({
+					dataLoaded: false,
+					savedConversions: savedList.savedConversions,
+				});
+			};
+		}, [])
+	);
 
 	const loadSavedConversions = async () => {
+		console.log(new Date());
 		try {
 			const loadedConversionString = await AsyncStorage.getItem(
 				'saved_conversions'
@@ -47,12 +53,6 @@ const SavedConversionListScreen: React.FC = ({ navigation }): ReactElement => {
 			console.error(e);
 		}
 	};
-
-	useEffect(() => {
-		if (!savedList.dataLoaded) {
-			loadSavedConversions();
-		}
-	});
 
 	const displaySavedConversions = () => {
 		if (!savedList.dataLoaded) {
