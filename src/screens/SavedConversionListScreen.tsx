@@ -32,7 +32,6 @@ const SavedConversionListScreen: React.FC = ({ navigation }): ReactElement => {
 	);
 
 	const loadSavedConversions = async () => {
-		console.log(new Date());
 		try {
 			const loadedConversionString = await AsyncStorage.getItem(
 				'saved_conversions'
