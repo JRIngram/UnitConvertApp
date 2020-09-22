@@ -58,3 +58,71 @@ describe('Can render odd and even rows', () => {
 		expect(getByDisplayValue('1')).toBeTruthy();
 	});
 });
+
+describe('Performing a simple conversions', () => {
+	it('correctly converts 1g to 0.001kg', () => {
+		const key = 0;
+		const { getByTestId, getByDisplayValue } = render(
+			<UnitConvertorRow
+				key={key}
+				rowKey={key}
+				containerStyle="even"
+				updateUnitConversions={(
+					conversionOutputValue: string,
+					conversionOutputUnit: string,
+					conversionName: string,
+					rowKey: number
+				) => {
+					return true;
+				}}
+			/>
+		);
+		const initialInputValue = getByDisplayValue('1000');
+		fireEvent.changeText(initialInputValue, 1);
+		expect(getByDisplayValue('0.001')).toBeTruthy();
+	});
+
+	it('correctly converts 0 to 0', () => {
+		const key = 0;
+		const { getByTestId, getByDisplayValue, getAllByDisplayValue } = render(
+			<UnitConvertorRow
+				key={key}
+				rowKey={key}
+				containerStyle="even"
+				updateUnitConversions={(
+					conversionOutputValue: string,
+					conversionOutputUnit: string,
+					conversionName: string,
+					rowKey: number
+				) => {
+					return true;
+				}}
+			/>
+		);
+		const initialInputValue = getByDisplayValue('1000');
+		fireEvent.changeText(initialInputValue, 0);
+		expect(getAllByDisplayValue('0').length).toEqual(2);
+	});
+
+	it('correctly converts displays NaN for non numerical conversions', () => {
+		const key = 0;
+		const { getByTestId, getByDisplayValue, getAllByDisplayValue } = render(
+			<UnitConvertorRow
+				key={key}
+				rowKey={key}
+				containerStyle="even"
+				updateUnitConversions={(
+					conversionOutputValue: string,
+					conversionOutputUnit: string,
+					conversionName: string,
+					rowKey: number
+				) => {
+					return true;
+				}}
+			/>
+		);
+		const initialInputValue = getByDisplayValue('1000');
+		fireEvent.changeText(initialInputValue, '!');
+		expect(getByDisplayValue('NaN')).toBeTruthy();
+	});
+});
