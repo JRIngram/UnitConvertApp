@@ -49,7 +49,7 @@ const ConvertorScreen: React.FC = (): ReactElement => {
 		});
 	};
 
-	const getRows = (totalInputRows: number) => {
+	const renderRows = (totalInputRows: number) => {
 		const inputRows = [];
 		for (let i = 0; i < totalInputRows; i++) {
 			inputRows.push(
@@ -161,7 +161,7 @@ const ConvertorScreen: React.FC = (): ReactElement => {
 		}
 	};
 
-	const rows = getRows(numberOfInputs);
+	const rows = renderRows(numberOfInputs);
 
 	return (
 		<>

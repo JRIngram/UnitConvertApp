@@ -11,7 +11,10 @@ const SavedConversionsButton = (
 	props: ISavedConversionsButton
 ): ReactElement => {
 	return (
-		<View style={styles.savedConversionButtonView}>
+		<View
+			style={styles.savedConversionButtonView}
+			testID={`saved-conversion-${props.title}`}
+		>
 			<TouchableOpacity
 				onPress={() => {
 					props.onPress();

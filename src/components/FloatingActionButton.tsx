@@ -14,7 +14,11 @@ const FloatingActionButton = ({
 	onPress,
 }: IFloatingActionButton): ReactElement => {
 	return (
-		<TouchableOpacity style={styles.FAB} onPress={onPress}>
+		<TouchableOpacity
+			style={styles.FAB}
+			onPress={onPress}
+			testID="floating-action-button"
+		>
 			<Icon name={icon} size={30} color={iconColor} />
 		</TouchableOpacity>
 	);

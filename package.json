@@ -5,7 +5,7 @@
 		"eject": "expo eject",
 		"ios": "expo start --ios",
 		"start": "expo start",
-		"test:jest": "jest",
+		"test:jest": "jest --coverage",
 		"test:lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
 		"test": "npm run test:jest; npm run test:lint",
 		"web": "expo start --web"

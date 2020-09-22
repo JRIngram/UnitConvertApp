@@ -110,12 +110,16 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 			: styles.evenContainer;
 
 	return (
-		<View style={containerStyle}>
-			<View style={styles.formContainer}>
+		<View style={containerStyle} testID={`convertor-row-${props.rowKey}`}>
+			<View
+				style={styles.formContainer}
+				testID={`input-row-${props.rowKey}`}
+			>
 				<TextInput
 					value={inputValue.toString()}
 					style={styles.textInputEditable}
 					editable={true}
+					testID={`input-value-${props.rowKey}`}
 					onChangeText={(value) => {
 						setInputValue(value);
 						props.updateUnitConversions(
@@ -128,6 +132,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 				/>
 				<Picker
 					style={styles.dropdown}
+					testID={`input-unit-${props.rowKey}`}
 					onValueChange={(itemValue) => {
 						setInputUnit(itemValue.toString());
 						props.updateUnitConversions(
@@ -143,15 +148,20 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 				</Picker>
 			</View>
 
-			<View style={styles.formContainer}>
+			<View
+				style={styles.formContainer}
+				testID={`output-row-${props.rowKey}`}
+			>
 				<TextInput
 					value={outputValue}
 					style={styles.textInputNotEditable}
 					editable={false}
+					testID={`output-value-${props.rowKey}`}
 				/>
 				<Picker
 					style={styles.dropdown}
 					selectedValue={outputUnit}
+					testID={`output-unit-${props.rowKey}`}
 					onValueChange={(itemValue) => {
 						setOutputUnit(itemValue.toString());
 						props.updateUnitConversions(
