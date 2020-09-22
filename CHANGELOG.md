@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+-   Ability to convert between mass and volume.
+-   Ability to save conversions.
+-   Ability to delete saved conversions
+
 ### Changed
 
 ### Deprecated
@@ -18,4 +22,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 ### Security
-
