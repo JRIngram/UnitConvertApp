@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { View, StyleSheet, TextInput } from 'react-native';
 import { Picker } from '@react-native-community/picker';
 // TO-DO perform ES2015 Import style
@@ -28,16 +28,24 @@ const addInputUnitOptions = () => {
 };
 
 export interface unitConvertorRowProps {
+	rowKey: number;
 	containerStyle: string;
+	updateUnitConversions: (
+		conversionOutputValue: string,
+		conversionOutputUnit: string,
+		conversionName: string,
+		rowKey: number
+	) => void;
 }
 
 const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 	props: unitConvertorRowProps
-): JSX.Element => {
+): ReactElement => {
 	const [inputUnit, setInputUnit] = useState('g');
 	const [inputValue, setInputValue] = useState('1000');
 	const [outputUnit, setOutputUnit] = useState('kg');
 	const [outputValue, setOutputValue] = useState('1');
+	const [itemName, setItemName] = useState('');
 
 	const addOutputUnitOptions = () => {
 		const pickerOptions = [];
@@ -74,7 +82,7 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 		}
 	};
 
-	const convertUnits = () => {
+	const convertUnits = async () => {
 		if (isValidConversion()) {
 			const convertedValue = convert(inputValue)
 				.from(inputUnit)
@@ -88,7 +96,13 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 
 	useEffect(() => {
 		convertUnits();
-	});
+		props.updateUnitConversions(
+			outputValue,
+			outputUnit,
+			itemName,
+			props.rowKey
+		);
+	}, [inputUnit, inputValue, outputUnit, outputValue, itemName]);
 
 	const containerStyle =
 		props.containerStyle === 'odd'
@@ -96,20 +110,37 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 			: styles.evenContainer;
 
 	return (
-		<View style={containerStyle}>
-			<View style={styles.formContainer}>
+		<View style={containerStyle} testID={`convertor-row-${props.rowKey}`}>
+			<View
+				style={styles.formContainer}
+				testID={`input-row-${props.rowKey}`}
+			>
 				<TextInput
 					value={inputValue.toString()}
 					style={styles.textInputEditable}
 					editable={true}
+					testID={`input-value-${props.rowKey}`}
 					onChangeText={(value) => {
 						setInputValue(value);
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							itemName,
+							props.rowKey
+						);
 					}}
 				/>
 				<Picker
 					style={styles.dropdown}
+					testID={`input-unit-${props.rowKey}`}
 					onValueChange={(itemValue) => {
 						setInputUnit(itemValue.toString());
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							itemName,
+							props.rowKey
+						);
 					}}
 					selectedValue={inputUnit}
 				>
@@ -117,21 +148,47 @@ const UnitConvertorRow: React.FC<unitConvertorRowProps> = (
 				</Picker>
 			</View>
 
-			<View style={styles.formContainer}>
+			<View
+				style={styles.formContainer}
+				testID={`output-row-${props.rowKey}`}
+			>
 				<TextInput
 					value={outputValue}
 					style={styles.textInputNotEditable}
 					editable={false}
+					testID={`output-value-${props.rowKey}`}
 				/>
 				<Picker
 					style={styles.dropdown}
 					selectedValue={outputUnit}
+					testID={`output-unit-${props.rowKey}`}
 					onValueChange={(itemValue) => {
 						setOutputUnit(itemValue.toString());
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							itemName,
+							props.rowKey
+						);
 					}}
 				>
 					{addOutputUnitOptions()}
 				</Picker>
+			</View>
+			<View style={styles.formContainer}>
+				<TextInput
+					style={styles.textInputEditable}
+					placeholder="Item name"
+					onChangeText={(value: string) => {
+						setItemName(value);
+						props.updateUnitConversions(
+							outputValue,
+							outputUnit,
+							itemName,
+							props.rowKey
+						);
+					}}
+				/>
 			</View>
 		</View>
 	);
@@ -145,6 +202,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#FFF',
 		padding: 5,
 		flex: 2,
+		fontSize: 16,
 	},
 	textInputNotEditable: {
 		height: '100%',
@@ -154,6 +212,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#EEE',
 		padding: 5,
 		flex: 2,
+		fontSize: 16,
 	},
 	dropdown: {
 		flex: 1,
