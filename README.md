@@ -2,6 +2,8 @@
 
 A react-native app used to convert between various mass and volume units. Built with Android in mind.
 
+<img src=".github/demo.gif" height="800" width="400" >
+
 ## Contributing
 
 Please view our [CONTRIBUTING.md](https://github.com/JRIngram/UnitConvertApp/blob/develop/CONTRIBUTING.md) file for information on how to contribute, report issues and request features.
