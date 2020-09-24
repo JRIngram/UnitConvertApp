@@ -4,7 +4,15 @@ A react-native app used to convert between various mass and volume units. Built 
 
 <img src=".github/demo.gif" height="800" width="400" >
 
-### Installing (for development)
+# Installing
+
+## Installing to device (Android Only)
+
+1. Download the APK from [here](http://ingram.technology/programs/unit-convert/unit-convert.apk)
+2. Install the APK to your device.
+3. Enjoy converting some units!
+
+## Installing (for development)
 
 1. Ensure Node is installed on your machine
 2. Ensure the expo app is installed on your mobile device
