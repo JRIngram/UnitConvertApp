@@ -1,7 +1,7 @@
 module.exports = {
 	root: true,
 	parser: '@typescript-eslint/parser',
-	plugins: ['@typescript-eslint', 'react', 'react-native'],
+	plugins: ['@typescript-eslint', 'react', 'react-native', 'react-hooks'],
 	extends: [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
@@ -15,6 +15,7 @@ module.exports = {
 	},
 	env: {
 		'react-native/react-native': true,
+		jest: true,
 	},
 	rules: {
 		'react-native/no-unused-styles': 2,
@@ -23,5 +24,6 @@ module.exports = {
 		'react-native/no-color-literals': 0,
 		'react-native/no-raw-text': 2,
 		'react-native/no-single-element-style-arrays': 2,
+		'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
 	},
 };
