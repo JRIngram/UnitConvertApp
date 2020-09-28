@@ -1,4 +1,4 @@
-# maze-geneneration
+# UnitConvertApp
 
 A react-native app used to convert between various mass and volume units. Built with Android in mind.
 
